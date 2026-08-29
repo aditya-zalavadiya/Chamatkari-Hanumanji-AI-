@@ -19,14 +19,14 @@ export interface PosterGeometry {
   };
   
   nameBox: {
-    left: number;       // 350 px / 900 ≈ 38.889% of width
-    right: number;      // 754 px / 900 ≈ 83.778% of width
-    top: number;        // 1399 px / 1599 ≈ 87.500% of height (text-safe, below label tag)
-    bottom: number;     // 1516 px / 1599 ≈ 94.800% of height
-    centerX: number;    // 552 px / 900 ≈ 61.333% of width
-    centerY: number;    // 1457.5 px / 1599 ≈ 91.150% of height
-    width: number;      // 404 px / 900 ≈ 44.889% of width
-    height: number;     // 117 px / 1599 ≈ 7.300% of height
+    left: number;       // 388 px / 900 ≈ 43.111% of width
+    right: number;      // 739 px / 900 ≈ 82.111% of width
+    top: number;        // 1350 px / 1599 ≈ 84.428% of height (text-safe, below label tag)
+    bottom: number;     // 1419 px / 1599 ≈ 88.743% of height
+    centerX: number;    // 563.5 px / 900 ≈ 62.611% of width
+    centerY: number;    // 1384.5 px / 1599 ≈ 86.585% of height (centered inside rectangular box)
+    width: number;      // 351 px / 900 ≈ 39.000% of width
+    height: number;     // 69 px / 1599 ≈ 4.315% of height
   };
 }
 
@@ -43,14 +43,14 @@ export const POSTER_CONFIG: PosterGeometry = {
   },
   
   nameBox: {
-    left: 350 / 900,        // 0.388889 (38.89%)
-    right: 754 / 900,       // 0.837778 (83.78%)
-    top: 1399 / 1599,       // 0.874922 (87.49%)
-    bottom: 1516 / 1599,    // 0.948093 (94.81%)
-    centerX: 552 / 900,     // 0.613333 (61.33%)
-    centerY: 1457.5 / 1599, // 0.911507 (91.15%)
-    width: 404 / 900,       // 0.448889 (44.89%)
-    height: 117 / 1599,     // 0.073171 (7.32%)
+    left: 388 / 900,        // 0.431111 (43.11%)
+    right: 739 / 900,       // 0.821111 (82.11%)
+    top: 1350 / 1599,       // 0.844278 (84.43%)
+    bottom: 1419 / 1599,    // 0.887430 (88.74%)
+    centerX: 563.5 / 900,   // 0.626111 (62.61%)
+    centerY: 1384.5 / 1599, // 0.865854 (86.59%)
+    width: 351 / 900,       // 0.390000 (39.00%)
+    height: 69 / 1599,      // 0.043152 (4.32%)
   },
 };
 
