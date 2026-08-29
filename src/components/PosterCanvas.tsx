@@ -45,7 +45,7 @@ export const PosterCanvas: React.FC<PosterCanvasProps> = ({
       name: devoteeName,
       photoTransform,
       fontFamily,
-      scale: 1, // Native preview (945x1665)
+      scale: 1, // Native preview (941x1671)
     });
 
     // If helper guides are requested, draw subtle overlay on preview canvas
@@ -139,7 +139,7 @@ export const PosterCanvas: React.FC<PosterCanvasProps> = ({
           : ''
       }`}
     >
-      {/* Poster Canvas Frame with Locked 945/1665 Aspect Ratio & Mobile Responsive Sizing */}
+      {/* Poster Canvas Frame with Locked 941/1671 Aspect Ratio & Mobile Responsive Sizing */}
       <div
         className={`relative w-full rounded-3xl overflow-hidden glass-panel p-2 sm:p-3 shadow-2xl border border-[#FFCD82]/30 group mx-auto transition-all ${
           isFullscreen
@@ -156,16 +156,16 @@ export const PosterCanvas: React.FC<PosterCanvasProps> = ({
           <span>Live HD Preview</span>
         </div>
 
-        {/* Canvas Display Locked Strictly to 945 / 1665 */}
+        {/* Canvas Display Locked Strictly to 941 / 1671 */}
         <div
           className="relative w-full rounded-2xl overflow-hidden shadow-2xl bg-[#1a0105] flex items-center justify-center"
-          style={{ aspectRatio: '945 / 1665' }}
+          style={{ aspectRatio: '941 / 1671' }}
         >
           <canvas
             ref={canvasRef}
             width={POSTER_CONFIG.nativeWidth}
             height={POSTER_CONFIG.nativeHeight}
-            className={`w-full h-full object-contain select-none touch-none aspect-[945/1665] ${
+            className={`w-full h-full object-contain select-none touch-none aspect-[941/1671] ${
               userImage ? 'cursor-grab active:cursor-grabbing' : 'cursor-default'
             }`}
             onPointerDown={handlePointerDown}
@@ -194,7 +194,7 @@ export const PosterCanvas: React.FC<PosterCanvasProps> = ({
         {/* Interactive Floating Quick Toolbar on Canvas */}
         <div className="mt-2.5 flex items-center justify-between gap-2 px-1 text-xs text-[#FFCD82]/80">
           <div className="flex items-center gap-1">
-            <span className="text-[10px] sm:text-[11px] text-[#FFCD82]/70 font-mono">945 × 1665px</span>
+            <span className="text-[10px] sm:text-[11px] text-[#FFCD82]/70 font-mono">941 × 1671px</span>
           </div>
 
           <div className="flex items-center gap-1">

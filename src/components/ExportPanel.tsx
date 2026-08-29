@@ -142,9 +142,9 @@ export const ExportPanel: React.FC<ExportPanelProps> = ({
         </label>
         <div className="grid grid-cols-3 gap-2">
           {[
-            { value: 1, label: '1x HD', desc: '945×1665' },
-            { value: 2, label: '2x Ultra HD', desc: '1890×3330 (બેસ્ટ)' },
-            { value: 3, label: '3x 4K Print', desc: '2835×4995 (પ્રિન્ટ)' },
+            { value: 1, label: '1x HD', desc: '941×1671' },
+            { value: 2, label: '2x Ultra HD', desc: '1882×3342 (બેસ્ટ)' },
+            { value: 3, label: '3x 4K Print', desc: '2823×5013 (પ્રિન્ટ)' },
           ].map((opt) => (
             <button
               key={opt.value}
@@ -162,7 +162,7 @@ export const ExportPanel: React.FC<ExportPanelProps> = ({
         </div>
       </div>
 
-      {/* Main Download Button with subtle Pink Idol Regalia glow on hover */}
+      {/* Main Download Button */}
       <button
         onClick={handleDownload}
         disabled={isExporting || !posterImage}

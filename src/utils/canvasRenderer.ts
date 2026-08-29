@@ -17,7 +17,7 @@ export interface RenderPosterOptions {
   name: string;
   photoTransform: PhotoTransform;
   fontFamily?: string;
-  scale?: number; // 1 for native (945x1665), 2 for 2x (1890x3330), etc.
+  scale?: number; // 1 for native (941x1671), 2 for 2x (1882x3342), etc.
 }
 
 /**
@@ -34,7 +34,7 @@ export const loadImage = (src: string): Promise<HTMLImageElement> => {
 };
 
 /**
- * Main Poster Compositor (V2)
+ * Main Poster Compositor (V3)
  * Performs pixel-perfect rendering onto the provided canvas.
  */
 export const renderPoster = ({
@@ -61,10 +61,10 @@ export const renderPoster = ({
   ctx.imageSmoothingEnabled = true;
   ctx.imageSmoothingQuality = 'high';
 
-  // 1. Draw Base Poster Template V2
+  // 1. Draw Base Poster Template V3
   ctx.drawImage(posterImage, 0, 0, targetWidth, targetHeight);
 
-  // 2. Draw User Photo clipped to Circle (Exact V2 Geometry)
+  // 2. Draw User Photo clipped to Circle (Exact V3 Geometry)
   const circleCenterX = POSTER_CONFIG.photoCircle.centerX * targetWidth;
   const circleCenterY = POSTER_CONFIG.photoCircle.centerY * targetHeight;
   const circleDiameter = POSTER_CONFIG.photoCircle.diameter * targetWidth;
@@ -131,41 +131,36 @@ export const renderPoster = ({
     ctx.restore();
   }
 
-  // 3. Draw Devotee Name in the Rectangular Box (V2 Layout: Left-Aligned, Vertically Centered)
+  // 3. Draw Devotee Name in the Rectangular Box (V3 Layout: Center-Aligned Both Axes)
   const trimmedName = name.trim();
   if (trimmedName) {
-    drawRectangularBoxName(ctx, trimmedName, targetWidth, targetHeight, fontFamily, scale);
+    drawCenteredBoxName(ctx, trimmedName, targetWidth, targetHeight, fontFamily);
   }
 };
 
 /**
- * Draws the devotee's name left-aligned and vertically centered inside the rectangular box
- * immediately to the right of "શુભેચ્છક:" (V2 Template)
+ * Draws the devotee's name center-aligned horizontally and vertically
+ * inside the rectangular box below the top "શુભેચ્છક:" label tag (V3 Template)
  */
-function drawRectangularBoxName(
+function drawCenteredBoxName(
   ctx: CanvasRenderingContext2D,
   text: string,
   canvasWidth: number,
   canvasHeight: number,
-  fontFamily: string,
-  scale: number
+  fontFamily: string
 ) {
-  const boxLeft = POSTER_CONFIG.nameBox.left * canvasWidth;
   const boxWidth = POSTER_CONFIG.nameBox.width * canvasWidth;
   const boxHeight = POSTER_CONFIG.nameBox.height * canvasHeight;
+  const centerX = POSTER_CONFIG.nameBox.centerX * canvasWidth;
   const centerY = POSTER_CONFIG.nameBox.centerY * canvasHeight;
 
-  // Left padding (~14px at native 945px width)
-  const paddingLeft = POSTER_CONFIG.nameBox.paddingLeftPx * scale;
-  const renderX = boxLeft + paddingLeft;
-
-  // Safety maximum width to prevent overflowing the right border
-  const maxAllowedWidth = boxWidth - paddingLeft * 1.5;
+  // Maximum allowed width with safe padding inside the frame
+  const maxAllowedWidth = boxWidth * 0.90;
   const maxAllowedHeight = boxHeight * 0.78;
 
-  // Dynamic Fit-To-Width search for exact font size
+  // Dynamic Fit-To-Width binary search for exact font size
   let minFont = 14 * (canvasWidth / POSTER_CONFIG.nativeWidth);
-  let maxFont = maxAllowedHeight * 1.1;
+  let maxFont = maxAllowedHeight * 1.05;
   let bestFontSize = minFont;
 
   ctx.save();
@@ -180,7 +175,7 @@ function drawRectangularBoxName(
   }
 
   ctx.font = `800 ${bestFontSize}px ${fontFamily}`;
-  ctx.textAlign = 'left';
+  ctx.textAlign = 'center';
   ctx.textBaseline = 'middle';
 
   // Small Y adjustment for Devanagari / Gujarati baseline balance
@@ -198,7 +193,7 @@ function drawRectangularBoxName(
   ctx.lineWidth = Math.max(2.2, bestFontSize * 0.08);
   ctx.lineJoin = 'round';
   ctx.miterLimit = 2;
-  ctx.strokeText(text, renderX, renderY);
+  ctx.strokeText(text, centerX, renderY);
 
   // Reset shadow for crisp gradient fill
   ctx.shadowColor = 'transparent';
@@ -220,7 +215,7 @@ function drawRectangularBoxName(
   gradient.addColorStop(1.0, '#7A4E10');  // Darker Gold Base
 
   ctx.fillStyle = gradient;
-  ctx.fillText(text, renderX, renderY);
+  ctx.fillText(text, centerX, renderY);
 
   // 4. Subtle Inner Highlight for metallic luster
   ctx.save();
@@ -229,7 +224,7 @@ function drawRectangularBoxName(
   highlightGrad.addColorStop(0.0, 'rgba(255, 255, 255, 0.4)');
   highlightGrad.addColorStop(1.0, 'rgba(255, 255, 255, 0.0)');
   ctx.fillStyle = highlightGrad;
-  ctx.fillText(text, renderX, renderY);
+  ctx.fillText(text, centerX, renderY);
   ctx.restore();
 
   ctx.restore();
