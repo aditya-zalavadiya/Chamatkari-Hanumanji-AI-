@@ -12,7 +12,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenAbout }) => {
     <header className="sticky top-0 z-40 w-full glass-panel-subtle border-b border-[#FFCD82]/20 px-3.5 py-2 sm:px-6 sm:py-2.5 backdrop-blur-2xl">
       <div className="max-w-7xl mx-auto flex items-center justify-between gap-3">
         {/* Left: Brand / Standalone Golden Emblem Logo */}
-        <div className="flex items-center gap-3 sm:gap-3.5">
+        <div className="flex items-center gap-3 sm:gap-4">
           <div
             className="cursor-pointer group flex items-center justify-center shrink-0"
             onClick={onOpenAbout}
@@ -21,7 +21,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenAbout }) => {
             <img
               src={ASSET_PATHS.templeLogo}
               alt="Shree Chamatkarik Dham Logo"
-              className="h-12 w-12 sm:h-14 sm:w-14 md:h-16 md:w-16 object-contain filter drop-shadow-[0_2px_10px_rgba(255,205,130,0.35)] group-hover:scale-105 transition-transform duration-300"
+              className="h-12 w-auto sm:h-14 md:h-16 max-w-[70px] object-contain group-hover:scale-105 transition-transform duration-300"
             />
           </div>
 

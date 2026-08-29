@@ -34,12 +34,12 @@ export const SplashScreen: React.FC<SplashScreenProps> = ({ onFinish }) => {
           fadeState === 'in' ? 'scale-90 opacity-0 translate-y-4' : 'scale-100 opacity-100 translate-y-0'
         }`}
       >
-        {/* Glowing Standalone Logo (No circular border) */}
+        {/* Glowing Standalone Logo (No circular border or background box) */}
         <div className="relative mb-5">
           <img
             src={ASSET_PATHS.templeLogo}
             alt="Shree Chamatkarik Dham Logo"
-            className="w-28 h-28 sm:w-36 sm:h-36 object-contain filter drop-shadow-[0_4px_25px_rgba(255,205,130,0.5)]"
+            className="h-28 sm:h-36 w-auto max-w-[150px] object-contain"
           />
         </div>
 

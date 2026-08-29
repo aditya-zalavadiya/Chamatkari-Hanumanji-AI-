@@ -12,7 +12,7 @@ export const Footer: React.FC = () => {
           <img
             src={ASSET_PATHS.templeLogo}
             alt="Temple Emblem"
-            className="w-14 h-14 sm:w-16 sm:h-16 object-contain filter drop-shadow-[0_2px_10px_rgba(255,205,130,0.35)]"
+            className="h-14 sm:h-16 w-auto max-w-[70px] object-contain"
           />
           <p className="font-serif text-sm sm:text-base font-semibold text-white tracking-wide">
             {TEMPLE_INFO.trust}
