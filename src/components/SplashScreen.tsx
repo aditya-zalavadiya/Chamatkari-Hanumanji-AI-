@@ -22,52 +22,52 @@ export const SplashScreen: React.FC<SplashScreenProps> = ({ onFinish }) => {
 
   return (
     <div
-      className={`fixed inset-0 z-50 flex flex-col items-center justify-center bg-[#150307] transition-all duration-700 ${
+      className={`fixed inset-0 z-50 flex flex-col items-center justify-center bg-[#150105] transition-all duration-700 ${
         fadeState === 'out' ? 'opacity-0 pointer-events-none scale-105' : 'opacity-100'
       }`}
     >
       {/* Background Sacred Glows */}
-      <div className="absolute w-[500px] h-[500px] rounded-full bg-radial from-amber-500/20 via-red-900/10 to-transparent blur-3xl pointer-events-none"></div>
+      <div className="absolute w-[450px] h-[450px] rounded-full bg-radial from-[#C68F41]/20 via-[#26020A]/20 to-transparent blur-3xl pointer-events-none"></div>
 
       <div
         className={`relative flex flex-col items-center text-center p-6 transition-all duration-700 transform ${
           fadeState === 'in' ? 'scale-90 opacity-0 translate-y-4' : 'scale-100 opacity-100 translate-y-0'
         }`}
       >
-        {/* Glowing Logo */}
-        <div className="relative mb-6">
-          <div className="absolute -inset-4 bg-gradient-to-r from-amber-400/40 via-yellow-300/40 to-amber-600/40 rounded-full blur-2xl opacity-80"></div>
+        {/* Glowing Logo (Equal aspect-ratio) */}
+        <div className="relative mb-5">
+          <div className="absolute -inset-3 bg-gradient-to-r from-[#C68F41]/40 via-[#FFCD82]/40 to-[#E60168]/30 rounded-full blur-2xl opacity-80"></div>
           <img
             src={ASSET_PATHS.templeLogo}
             alt="Shree Chamatkarik Dham Logo"
-            className="relative w-28 h-28 sm:w-32 sm:h-32 rounded-full object-cover border-2 border-amber-300/80 shadow-2xl shadow-amber-950"
+            className="relative w-24 h-24 sm:w-28 sm:h-28 aspect-square rounded-full object-cover border-2 border-[#FFCD82]/80 shadow-2xl shadow-black"
           />
         </div>
 
         {/* Auspicious Mantra */}
-        <div className="flex items-center gap-2 text-xs sm:text-sm font-semibold tracking-widest text-amber-300/90 mb-2 uppercase">
+        <div className="flex items-center gap-2 text-xs sm:text-sm font-semibold tracking-widest text-[#FFCD82] mb-1.5 uppercase">
           <span>{TEMPLE_INFO.mantra}</span>
         </div>
 
         {/* Temple Name */}
-        <h1 className="text-2xl sm:text-3xl font-bold font-serif text-white drop-shadow-lg mb-1">
+        <h2 className="text-xl sm:text-2xl font-bold font-serif text-white drop-shadow-lg mb-1">
           {TEMPLE_INFO.trust}
-        </h1>
+        </h2>
 
-        <p className="text-sm sm:text-base text-amber-200/80 font-medium">
+        <p className="text-xs sm:text-sm text-[#FFCD82]/80 font-medium">
           {TEMPLE_INFO.name} • {TEMPLE_INFO.location}
         </p>
 
         {/* Event Badge */}
-        <div className="mt-4 px-4 py-1.5 rounded-full bg-amber-500/20 border border-amber-400/40 text-amber-200 text-xs font-semibold shadow-inner flex items-center gap-2">
+        <div className="mt-3.5 px-3.5 py-1 rounded-full bg-[#C68F41]/20 border border-[#FFCD82]/40 text-[#FFCD82] text-xs font-semibold shadow-inner flex items-center gap-2">
           <span>{TEMPLE_INFO.eventTitle}</span>
           <span>•</span>
           <span>{TEMPLE_INFO.eventSubtitle}</span>
         </div>
 
         {/* Subtle loading bar */}
-        <div className="mt-8 w-44 h-1 bg-amber-950/80 rounded-full overflow-hidden border border-amber-500/20">
-          <div className="h-full bg-gradient-to-r from-amber-400 to-yellow-200 rounded-full animate-[shimmer_1.8s_infinite] w-full"></div>
+        <div className="mt-6 w-36 h-1 bg-[#26020A] rounded-full overflow-hidden border border-[#FFCD82]/20">
+          <div className="h-full bg-gradient-to-r from-[#C68F41] to-[#FFCD82] rounded-full animate-[shimmer_1.8s_infinite] w-full"></div>
         </div>
       </div>
     </div>

@@ -17,7 +17,7 @@ export interface RenderPosterOptions {
   name: string;
   photoTransform: PhotoTransform;
   fontFamily?: string;
-  scale?: number; // 1 for native (1194x1600), 2 for 2x, etc.
+  scale?: number; // 1 for native (945x1665), 2 for 2x (1890x3330), etc.
 }
 
 /**
@@ -34,7 +34,7 @@ export const loadImage = (src: string): Promise<HTMLImageElement> => {
 };
 
 /**
- * Main Poster Compositor
+ * Main Poster Compositor (V2)
  * Performs pixel-perfect rendering onto the provided canvas.
  */
 export const renderPoster = ({
@@ -61,10 +61,10 @@ export const renderPoster = ({
   ctx.imageSmoothingEnabled = true;
   ctx.imageSmoothingQuality = 'high';
 
-  // 1. Draw Base Poster Template
+  // 1. Draw Base Poster Template V2
   ctx.drawImage(posterImage, 0, 0, targetWidth, targetHeight);
 
-  // 2. Draw User Photo clipped to Circle
+  // 2. Draw User Photo clipped to Circle (Exact V2 Geometry)
   const circleCenterX = POSTER_CONFIG.photoCircle.centerX * targetWidth;
   const circleCenterY = POSTER_CONFIG.photoCircle.centerY * targetHeight;
   const circleDiameter = POSTER_CONFIG.photoCircle.diameter * targetWidth;
@@ -73,7 +73,7 @@ export const renderPoster = ({
   if (userImage && userImage.complete && userImage.naturalWidth > 0) {
     ctx.save();
 
-    // Create circular clipping path
+    // Create circular clipping path (True mathematical circle, equal radius in all axes)
     ctx.beginPath();
     ctx.arc(circleCenterX, circleCenterY, circleRadius, 0, Math.PI * 2, true);
     ctx.closePath();
@@ -131,40 +131,45 @@ export const renderPoster = ({
     ctx.restore();
   }
 
-  // 3. Draw Devotee Name in Gold Ribbon Box
+  // 3. Draw Devotee Name in the Rectangular Box (V2 Layout: Left-Aligned, Vertically Centered)
   const trimmedName = name.trim();
   if (trimmedName) {
-    drawRibbonName(ctx, trimmedName, targetWidth, targetHeight, fontFamily);
+    drawRectangularBoxName(ctx, trimmedName, targetWidth, targetHeight, fontFamily, scale);
   }
 };
 
 /**
- * Draws the devotee's name auto-fitted and styled like temple gold inscription
+ * Draws the devotee's name left-aligned and vertically centered inside the rectangular box
+ * immediately to the right of "શુભેચ્છક:" (V2 Template)
  */
-function drawRibbonName(
+function drawRectangularBoxName(
   ctx: CanvasRenderingContext2D,
   text: string,
   canvasWidth: number,
   canvasHeight: number,
-  fontFamily: string
+  fontFamily: string,
+  scale: number
 ) {
+  const boxLeft = POSTER_CONFIG.nameBox.left * canvasWidth;
   const boxWidth = POSTER_CONFIG.nameBox.width * canvasWidth;
   const boxHeight = POSTER_CONFIG.nameBox.height * canvasHeight;
-  const centerX = POSTER_CONFIG.nameBox.centerX * canvasWidth;
   const centerY = POSTER_CONFIG.nameBox.centerY * canvasHeight;
 
-  // Leave safety padding inside the ribbon
-  const maxAllowedWidth = boxWidth * 0.90;
-  const maxAllowedHeight = boxHeight * 0.72;
+  // Left padding (~14px at native 945px width)
+  const paddingLeft = POSTER_CONFIG.nameBox.paddingLeftPx * scale;
+  const renderX = boxLeft + paddingLeft;
 
-  // Dynamic Fit-To-Width binary search for exact font size
-  let minFont = 10 * (canvasWidth / POSTER_CONFIG.nativeWidth);
-  let maxFont = maxAllowedHeight * 1.05;
+  // Safety maximum width to prevent overflowing the right border
+  const maxAllowedWidth = boxWidth - paddingLeft * 1.5;
+  const maxAllowedHeight = boxHeight * 0.78;
+
+  // Dynamic Fit-To-Width search for exact font size
+  let minFont = 14 * (canvasWidth / POSTER_CONFIG.nativeWidth);
+  let maxFont = maxAllowedHeight * 1.1;
   let bestFontSize = minFont;
 
   ctx.save();
 
-  // Test font sizes
   for (let sz = maxFont; sz >= minFont; sz -= 0.5) {
     ctx.font = `800 ${sz}px ${fontFamily}`;
     const metrics = ctx.measureText(text);
@@ -175,57 +180,56 @@ function drawRibbonName(
   }
 
   ctx.font = `800 ${bestFontSize}px ${fontFamily}`;
-  ctx.textAlign = 'center';
+  ctx.textAlign = 'left';
   ctx.textBaseline = 'middle';
 
-  // Text Y offset adjustment for Devanagari/Gujarati baseline balance
-  const yOffset = bestFontSize * 0.04;
+  // Small Y adjustment for Devanagari / Gujarati baseline balance
+  const yOffset = bestFontSize * 0.03;
   const renderY = centerY + yOffset;
 
-  // 1. Dark Maroon Outer Shadow / Glow for high contrast against gold ribbon
-  ctx.shadowColor = 'rgba(25, 3, 7, 0.85)';
+  // 1. Dark Maroon Shadow & Outline for sharp contrast against gold / dark box background
+  ctx.shadowColor = 'rgba(20, 1, 5, 0.85)';
   ctx.shadowBlur = Math.max(3, bestFontSize * 0.16);
   ctx.shadowOffsetX = 0;
-  ctx.shadowOffsetY = Math.max(1.5, bestFontSize * 0.06);
+  ctx.shadowOffsetY = Math.max(1.5, bestFontSize * 0.05);
 
   // 2. Stroke outline
-  ctx.strokeStyle = '#220409';
-  ctx.lineWidth = Math.max(2, bestFontSize * 0.08);
+  ctx.strokeStyle = '#26020A';
+  ctx.lineWidth = Math.max(2.2, bestFontSize * 0.08);
   ctx.lineJoin = 'round';
   ctx.miterLimit = 2;
-  ctx.strokeText(text, centerX, renderY);
+  ctx.strokeText(text, renderX, renderY);
 
-  // Reset shadow for clean gradient fill
+  // Reset shadow for crisp gradient fill
   ctx.shadowColor = 'transparent';
   ctx.shadowBlur = 0;
   ctx.shadowOffsetX = 0;
   ctx.shadowOffsetY = 0;
 
-  // 3. Luxurious Multi-stop Gold Linear Gradient
+  // 3. Gold Linear Gradient (Matching poster lettering: #FFE2B8 -> #FFCD82 -> #C68F41 -> #7A4E10)
   const gradient = ctx.createLinearGradient(
     0,
     renderY - bestFontSize * 0.5,
     0,
     renderY + bestFontSize * 0.55
   );
-  gradient.addColorStop(0.0, '#FFFFFF'); // Soft highlight
-  gradient.addColorStop(0.18, '#FFF3D1');
-  gradient.addColorStop(0.35, '#FDE08D'); // Warm gold glow
-  gradient.addColorStop(0.65, '#D4AF37'); // Classic temple gold
-  gradient.addColorStop(0.88, '#9E7418'); // Deep metallic gold
-  gradient.addColorStop(1.0, '#5C4008');  // Rich shadow base
+  gradient.addColorStop(0.0, '#FFFFFF'); // Soft specular
+  gradient.addColorStop(0.2, '#FFE8C7');
+  gradient.addColorStop(0.45, '#FFCD82'); // Bright Gold Highlight
+  gradient.addColorStop(0.75, '#C68F41'); // Mid Gold Fill
+  gradient.addColorStop(1.0, '#7A4E10');  // Darker Gold Base
 
   ctx.fillStyle = gradient;
-  ctx.fillText(text, centerX, renderY);
+  ctx.fillText(text, renderX, renderY);
 
-  // 4. Subtle Inner Highlight for metallic gleam
+  // 4. Subtle Inner Highlight for metallic luster
   ctx.save();
   ctx.globalCompositeOperation = 'source-atop';
   const highlightGrad = ctx.createLinearGradient(0, renderY - bestFontSize * 0.5, 0, renderY);
-  highlightGrad.addColorStop(0.0, 'rgba(255, 255, 255, 0.45)');
+  highlightGrad.addColorStop(0.0, 'rgba(255, 255, 255, 0.4)');
   highlightGrad.addColorStop(1.0, 'rgba(255, 255, 255, 0.0)');
   ctx.fillStyle = highlightGrad;
-  ctx.fillText(text, centerX, renderY);
+  ctx.fillText(text, renderX, renderY);
   ctx.restore();
 
   ctx.restore();
@@ -279,7 +283,7 @@ export const triggerDownload = (blob: Blob, devoteeName: string) => {
     .replace(/-+/g, '-')
     .replace(/^-|-$/g, '');
 
-  const filename = `chamatkarik-dham-ganesh-mahotsav-${sanitized || 'bhakt'}.png`;
+  const filename = `chamatkarik-dham-ganesh-utsav-${sanitized || 'bhakt'}.png`;
   const url = URL.createObjectURL(blob);
   const anchor = document.createElement('a');
   anchor.href = url;

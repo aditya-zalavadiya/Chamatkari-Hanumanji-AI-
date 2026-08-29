@@ -1,9 +1,9 @@
 /**
  * Shree Chamatkarik Hanumanji Mandir, Rajkot
- * Ganesh Mahotsav Poster Name-Card Generator Configuration
+ * Ganesh Mahotsav Poster Name-Card Generator Configuration - V2
  * 
- * All coordinates are defined as exact percentage ratios of the poster's width and height.
- * Native poster resolution: 1194 × 1600 px (Aspect ratio: 0.74625)
+ * Native poster resolution: 945 × 1665 px (Aspect ratio: 945 / 1665 ≈ 0.567567)
+ * All coordinates are percentage-based on native dimensions.
  */
 
 export interface PosterGeometry {
@@ -12,43 +12,47 @@ export interface PosterGeometry {
   aspectRatio: number;
   
   photoCircle: {
-    centerX: number; // 18.97% of poster width
-    centerY: number; // 80.06% of poster height
-    diameter: number; // 18.20% of poster width
+    centerX: number; // 186 px / 945 ≈ 19.68% of width
+    centerY: number; // 1425 px / 1665 ≈ 85.59% of height
+    diameter: number; // 218 px / 945 ≈ 23.0% of width
+    radius: number;   // 109 px / 945 ≈ 11.5% of width
   };
   
   nameBox: {
-    left: number;   // 7.9% of poster width
-    right: number;  // 29.6% of poster width
-    width: number;  // 21.7% of poster width
-    top: number;    // 88.6% of poster height
-    bottom: number; // 92.3% of poster height
-    height: number; // 3.7% of poster height
-    centerX: number;// 18.75% of poster width
-    centerY: number;// 90.45% of poster height
+    left: number;       // 548 px / 945 ≈ 57.99% of width
+    right: number;      // 883 px / 945 ≈ 93.44% of width
+    top: number;        // 1487 px / 1665 ≈ 89.31% of height
+    bottom: number;     // 1562 px / 1665 ≈ 93.81% of height
+    centerX: number;    // 715.5 px / 945 ≈ 75.71% of width
+    centerY: number;    // 1524.5 px / 1665 ≈ 91.56% of height
+    width: number;      // 335 px / 945 ≈ 35.45% of width
+    height: number;     // 75 px / 1665 ≈ 4.50% of height
+    paddingLeftPx: number; // ~14px left padding at 945px native width
   };
 }
 
 export const POSTER_CONFIG: PosterGeometry = {
-  nativeWidth: 1194,
-  nativeHeight: 1600,
-  aspectRatio: 1194 / 1600, // 0.74625
+  nativeWidth: 945,
+  nativeHeight: 1665,
+  aspectRatio: 945 / 1665, // ~0.567567
   
   photoCircle: {
-    centerX: 0.1897, // 18.97%
-    centerY: 0.8006, // 80.06%
-    diameter: 0.1820, // 18.20% of width
+    centerX: 186 / 945,  // 0.196825 (19.68%)
+    centerY: 1425 / 1665, // 0.855856 (85.59%)
+    diameter: 218 / 945, // 0.230688 (23.0%)
+    radius: 109 / 945,   // 0.115344 (11.5%)
   },
   
   nameBox: {
-    left: 0.0790,   // 7.9%
-    right: 0.2960,  // 29.6%
-    width: 0.2170,  // 21.7% (0.2960 - 0.0790)
-    top: 0.8860,    // 88.6%
-    bottom: 0.9230, // 92.3%
-    height: 0.0370, // 3.7% (0.9230 - 0.8860)
-    centerX: (0.0790 + 0.2960) / 2, // 0.1875 (18.75%)
-    centerY: (0.8860 + 0.9230) / 2, // 0.9045 (90.45%)
+    left: 548 / 945,     // 0.579894 (57.99%)
+    right: 883 / 945,    // 0.934392 (93.44%)
+    top: 1487 / 1665,    // 0.893093 (89.31%)
+    bottom: 1562 / 1665, // 0.938138 (93.81%)
+    centerX: 715.5 / 945, // 0.757143 (75.71%)
+    centerY: 1524.5 / 1665, // 0.915616 (91.56%)
+    width: 335 / 945,    // 0.354497 (35.45%)
+    height: 75 / 1665,   // 0.045045 (4.50%)
+    paddingLeftPx: 14,   // 14px at native 945px width
   },
 };
 
@@ -57,17 +61,19 @@ export const TEMPLE_INFO = {
   nameEn: "Shree Chamatkarik Hanumanji Mandir",
   trust: "શ્રી ચમત્કારિક ધામ, રાજકોટ",
   trustEn: "Shree Chamatkarik Dham, Rajkot",
-  location: "કાલાવડ રોડ, રાજકોટ, ગુજરાત",
-  locationEn: "Kalawad Road, Rajkot, Gujarat",
-  eventTitle: "૧૭મો ગણેશ મહોત્સવ",
+  location: "એ.જી. ચોક, કાલાવડ રોડ, રાજકોટ.",
+  locationEn: "A.G. Chowk, Kalawad Road, Rajkot",
+  eventTitle: "૧૭ મો ગણેશ ઉત્સવ",
   eventSubtitle: "ચમત્કારિક ધામ કા રાજા",
+  dates: "૧૪/૦૯/૨૬ થી ૨૫/૦૯/૨૬",
+  datesEn: "14/09/26 to 25/09/26",
   instagramHandle: "@shreechamatkarikdham",
   instagramUrl: "https://instagram.com/shreechamatkarikdham",
   mantra: "॥ ૐ શ્રી ગણેશાય નમઃ ॥ ॥ ૐ હં હનુમતે નમઃ ॥",
 };
 
 export const ASSET_PATHS = {
-  posterTemplate: "/assets/poster-template.jpg",
+  posterTemplate: "/assets/poster-template-v2.png",
   templeLogo: "/assets/temple-logo.png",
 };
 
