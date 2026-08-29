@@ -9,22 +9,25 @@ interface HeaderProps {
 
 export const Header: React.FC<HeaderProps> = ({ onOpenAbout }) => {
   return (
-    <header className="sticky top-0 z-40 w-full glass-panel-subtle border-b border-[#FFCD82]/20 px-4 py-2.5 sm:px-6 sm:py-3.5 backdrop-blur-2xl">
+    <header className="sticky top-0 z-40 w-full glass-panel-subtle border-b border-[#FFCD82]/20 px-3.5 py-2 sm:px-6 sm:py-2.5 backdrop-blur-2xl">
       <div className="max-w-7xl mx-auto flex items-center justify-between gap-3">
-        {/* Left: Brand / Logo */}
-        <div className="flex items-center gap-2.5 sm:gap-3">
-          <div className="relative group cursor-pointer" onClick={onOpenAbout}>
-            <div className="absolute -inset-1 bg-gradient-to-r from-[#C68F41]/40 via-[#FFCD82]/40 to-[#E60168]/30 rounded-full blur-md opacity-70 group-hover:opacity-100 transition duration-500"></div>
+        {/* Left: Brand / Standalone Golden Emblem Logo */}
+        <div className="flex items-center gap-3 sm:gap-3.5">
+          <div
+            className="cursor-pointer group flex items-center justify-center shrink-0"
+            onClick={onOpenAbout}
+            title="Shree Chamatkarik Dham, Rajkot"
+          >
             <img
               src={ASSET_PATHS.templeLogo}
               alt="Shree Chamatkarik Dham Logo"
-              className="relative w-10 h-10 sm:w-12 sm:h-12 aspect-square rounded-full object-cover border border-[#FFCD82]/60 shadow-lg shadow-black/50 transform group-hover:scale-105 transition-transform duration-300"
+              className="h-12 w-12 sm:h-14 sm:w-14 md:h-16 md:w-16 object-contain filter drop-shadow-[0_2px_10px_rgba(255,205,130,0.35)] group-hover:scale-105 transition-transform duration-300"
             />
           </div>
 
           <div>
             <div className="flex items-center gap-2">
-              <h2 className="text-sm sm:text-lg font-bold tracking-tight text-white font-serif flex items-center gap-1.5 drop-shadow-md">
+              <h2 className="text-base sm:text-lg md:text-xl font-bold tracking-tight text-white font-serif flex items-center gap-1.5 drop-shadow-md">
                 <span>{TEMPLE_INFO.trust}</span>
               </h2>
               <span className="hidden md:inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-semibold bg-[#C68F41]/20 text-[#FFCD82] border border-[#FFCD82]/30">
@@ -48,7 +51,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenAbout }) => {
             className="glass-pill px-3 py-1.5 sm:px-4 sm:py-2 rounded-full flex items-center gap-2 text-xs sm:text-sm font-semibold text-[#FFCD82] hover:text-white transition-all shadow-md group cursor-pointer"
             title="Follow on Instagram"
           >
-            <div className="w-5 h-5 aspect-square rounded-full bg-gradient-to-tr from-yellow-500 via-pink-600 to-purple-600 flex items-center justify-center p-0.5 text-white shadow-sm group-hover:scale-110 transition-transform shrink-0">
+            <div className="w-5 h-5 rounded-full bg-gradient-to-tr from-yellow-500 via-pink-600 to-purple-600 flex items-center justify-center p-0.5 text-white shadow-sm group-hover:scale-110 transition-transform shrink-0">
               <InstagramIcon className="w-3 h-3 text-white" />
             </div>
             <span className="hidden sm:inline font-sans">{TEMPLE_INFO.instagramHandle}</span>

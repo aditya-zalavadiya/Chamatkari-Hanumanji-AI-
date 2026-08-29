@@ -7,12 +7,12 @@ export const Footer: React.FC = () => {
   return (
     <footer className="w-full glass-panel-subtle border-t border-[#FFCD82]/20 py-6 sm:py-8 px-4 sm:px-6 mt-12 sm:mt-16 text-center text-xs text-[#FFCD82]/70">
       <div className="max-w-4xl mx-auto space-y-3.5">
-        {/* Emblem & Blessing */}
+        {/* Emblem & Blessing without circular frame */}
         <div className="flex flex-col items-center justify-center gap-2">
           <img
             src={ASSET_PATHS.templeLogo}
             alt="Temple Emblem"
-            className="w-10 h-10 aspect-square rounded-full border border-[#FFCD82]/50 shadow-md object-cover"
+            className="w-14 h-14 sm:w-16 sm:h-16 object-contain filter drop-shadow-[0_2px_10px_rgba(255,205,130,0.35)]"
           />
           <p className="font-serif text-sm sm:text-base font-semibold text-white tracking-wide">
             {TEMPLE_INFO.trust}
