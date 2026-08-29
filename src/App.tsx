@@ -83,18 +83,19 @@ export const App: React.FC = () => {
 
       {/* Main Content Area: Natural Vertical Flow on Mobile, 2-Column on Desktop */}
       <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 py-4 sm:py-6 md:py-8">
-        {/* Hero Title & Auspicious Banner */}
-        <div className="text-center max-w-3xl mx-auto mb-4 sm:mb-6 md:mb-8 space-y-2">
+        {/* Royal Grand Hero Headline */}
+        <div className="text-center max-w-3xl mx-auto mb-4 sm:mb-6 md:mb-8 space-y-1.5 sm:space-y-2">
           <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#C68F41]/15 border border-[#FFCD82]/30 text-[#FFCD82] text-xs sm:text-sm font-semibold shadow-inner">
-            <span>{TEMPLE_INFO.eventTitle} • {TEMPLE_INFO.eventSubtitle} • {TEMPLE_INFO.dates}</span>
+            <span>શ્રી ચમત્કારિક ધામ દ્વારા આયોજિત • {TEMPLE_INFO.eventTitle}</span>
           </div>
 
-          <h1 className="text-xl sm:text-2xl md:text-4xl font-extrabold text-white font-serif tracking-tight drop-shadow-lg">
-            ઓફિશિયલ ગણેશ ઉત્સવ પોસ્ટર બનાવો
+          {/* Big Superb "ચમત્કારિક ધામ કા રાજા" Headline */}
+          <h1 className="royal-gold-heading text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight py-1">
+            "ચમત્કારિક ધામ કા રાજા"
           </h1>
 
-          <p className="text-xs sm:text-sm md:text-base text-[#FFCD82]/80 max-w-xl mx-auto font-normal">
-            તમારો ફોટો અને નામ ઉમેરો અને શ્રી ચમત્કારિક ધામનું પવિત્ર પોસ્ટર ડાઉનલોડ કરો.
+          <p className="text-xs sm:text-sm md:text-base text-[#FFCD82]/90 max-w-xl mx-auto font-medium">
+            તારીખ: {TEMPLE_INFO.dates} • {TEMPLE_INFO.location}
           </p>
         </div>
 

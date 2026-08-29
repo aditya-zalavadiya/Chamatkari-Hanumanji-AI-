@@ -28,6 +28,16 @@
   }
 }
 
+/* Royal Gold Headline */
+.royal-gold-heading {
+  font-family: 'Rozha One', 'Noto Serif Gujarati', 'Rasa', serif;
+  background: linear-gradient(180deg, #FFFFFF 0%, #FFF2DD 15%, #FFCD82 45%, #C68F41 78%, #7A4E10 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 4px 18px rgba(198, 143, 65, 0.45)) drop-shadow(0 2px 6px rgba(0, 0, 0, 0.9));
+  letter-spacing: 0.02em;
+}
+
 /* Custom Glassmorphism Classes (V2 Palette) */
 .glass-panel {
   background: rgba(38, 2, 10, 0.65);
