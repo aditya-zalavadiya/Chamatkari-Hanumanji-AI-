@@ -28,12 +28,12 @@ export const AboutModal: React.FC<AboutModalProps> = ({ isOpen, onClose }) => {
           <X className="w-5 h-5" />
         </button>
 
-        {/* Header with Temple Emblem */}
-        <div className="flex items-center gap-3.5">
+        {/* Header with Bigger Temple Emblem */}
+        <div className="flex items-center gap-4">
           <img
             src={ASSET_PATHS.templeLogo}
             alt="Temple Logo"
-            className="h-16 w-auto max-w-[75px] object-contain shrink-0"
+            className="h-20 sm:h-24 w-auto max-w-[110px] object-contain shrink-0 filter drop-shadow-[0_4px_16px_rgba(255,205,130,0.35)]"
           />
           <div>
             <div className="flex items-center gap-1.5 text-[11px] sm:text-xs text-[#FFCD82] font-semibold uppercase tracking-wider">

@@ -9,9 +9,9 @@ interface HeaderProps {
 
 export const Header: React.FC<HeaderProps> = ({ onOpenAbout }) => {
   return (
-    <header className="sticky top-0 z-40 w-full glass-panel-subtle border-b border-[#FFCD82]/20 px-3.5 py-2 sm:px-6 sm:py-2.5 backdrop-blur-2xl">
+    <header className="sticky top-0 z-40 w-full glass-panel-subtle border-b border-[#FFCD82]/20 px-3.5 py-2 sm:px-6 sm:py-3 backdrop-blur-2xl">
       <div className="max-w-7xl mx-auto flex items-center justify-between gap-3">
-        {/* Left: Brand / Standalone Golden Emblem Logo */}
+        {/* Left: Brand / Grand Golden Emblem Logo */}
         <div className="flex items-center gap-3 sm:gap-4">
           <div
             className="cursor-pointer group flex items-center justify-center shrink-0"
@@ -21,21 +21,21 @@ export const Header: React.FC<HeaderProps> = ({ onOpenAbout }) => {
             <img
               src={ASSET_PATHS.templeLogo}
               alt="Shree Chamatkarik Dham Logo"
-              className="h-12 w-auto sm:h-14 md:h-16 max-w-[70px] object-contain group-hover:scale-105 transition-transform duration-300"
+              className="h-16 w-auto sm:h-20 md:h-24 max-w-[100px] object-contain group-hover:scale-105 transition-transform duration-300 filter drop-shadow-[0_4px_12px_rgba(255,205,130,0.25)]"
             />
           </div>
 
           <div>
             <div className="flex items-center gap-2">
-              <h2 className="text-base sm:text-lg md:text-xl font-bold tracking-tight text-white font-serif flex items-center gap-1.5 drop-shadow-md">
+              <h2 className="text-base sm:text-xl md:text-2xl font-bold tracking-tight text-white font-serif flex items-center gap-1.5 drop-shadow-md">
                 <span>{TEMPLE_INFO.trust}</span>
               </h2>
-              <span className="hidden md:inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-semibold bg-[#C68F41]/20 text-[#FFCD82] border border-[#FFCD82]/30">
+              <span className="hidden md:inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-[#C68F41]/20 text-[#FFCD82] border border-[#FFCD82]/30">
                 {TEMPLE_INFO.eventTitle}
               </span>
             </div>
-            <p className="text-[11px] sm:text-xs text-[#FFCD82]/80 flex items-center gap-1 font-medium truncate">
-              <MapPin className="w-3 h-3 text-[#FFCD82] shrink-0" />
+            <p className="text-xs sm:text-sm text-[#FFCD82]/85 flex items-center gap-1 font-medium truncate mt-0.5">
+              <MapPin className="w-3.5 h-3.5 text-[#FFCD82] shrink-0" />
               <span>{TEMPLE_INFO.name} • {TEMPLE_INFO.location}</span>
             </p>
           </div>
