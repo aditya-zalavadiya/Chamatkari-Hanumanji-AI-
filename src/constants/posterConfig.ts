@@ -1,8 +1,8 @@
 /**
  * Shree Chamatkarik Hanumanji Mandir, Rajkot
- * Ganesh Mahotsav Poster Name-Card Generator Configuration - V3
+ * Ganesh Mahotsav Poster Name-Card Generator Configuration
  * 
- * Native poster resolution: 941 × 1671 px (Aspect ratio: 941 / 1671 ≈ 0.563136)
+ * Native poster resolution: 900 × 1599 px (Aspect ratio: 900 / 1599 ≈ 0.562852)
  * All coordinates are percentage-based on native dimensions.
  */
 
@@ -12,45 +12,45 @@ export interface PosterGeometry {
   aspectRatio: number;
   
   photoCircle: {
-    centerX: number; // 191 px / 941 ≈ 20.30% of width
-    centerY: number; // 1381 px / 1671 ≈ 82.65% of height
-    diameter: number; // 249 px / 941 ≈ 26.50% of width
-    radius: number;   // 124.5 px / 941 ≈ 13.25% of width
+    centerX: number; // 173.3 px / 900 ≈ 19.255% of width
+    centerY: number; // 1294.9 px / 1599 ≈ 80.980% of height
+    diameter: number; // 259.0 px / 900 ≈ 28.778% of width
+    radius: number;   // 129.5 px / 900 ≈ 14.389% of width
   };
   
   nameBox: {
-    left: number;       // 400 px / 941 ≈ 42.51% of width
-    right: number;      // 792 px / 941 ≈ 84.16% of width
-    top: number;        // 1415 px / 1671 ≈ 84.68% of height (text-safe, below label tag)
-    bottom: number;     // 1500 px / 1671 ≈ 89.77% of height
-    centerX: number;    // 596 px / 941 ≈ 63.34% of width
-    centerY: number;    // 1457.5 px / 1671 ≈ 87.22% of height
-    width: number;      // 392 px / 941 ≈ 41.66% of width
-    height: number;     // 85 px / 1671 ≈ 5.09% of height
+    left: number;       // 350 px / 900 ≈ 38.889% of width
+    right: number;      // 754 px / 900 ≈ 83.778% of width
+    top: number;        // 1399 px / 1599 ≈ 87.500% of height (text-safe, below label tag)
+    bottom: number;     // 1516 px / 1599 ≈ 94.800% of height
+    centerX: number;    // 552 px / 900 ≈ 61.333% of width
+    centerY: number;    // 1457.5 px / 1599 ≈ 91.150% of height
+    width: number;      // 404 px / 900 ≈ 44.889% of width
+    height: number;     // 117 px / 1599 ≈ 7.300% of height
   };
 }
 
 export const POSTER_CONFIG: PosterGeometry = {
-  nativeWidth: 941,
-  nativeHeight: 1671,
-  aspectRatio: 941 / 1671, // ~0.5631358
+  nativeWidth: 900,
+  nativeHeight: 1599,
+  aspectRatio: 900 / 1599, // ~0.562852
   
   photoCircle: {
-    centerX: 191 / 941,   // 0.2029755 (20.30%)
-    centerY: 1381 / 1671, // 0.8264512 (82.65%)
-    diameter: 249 / 941,  // 0.2646121 (26.50%)
-    radius: 124.5 / 941,  // 0.1323060 (13.25%)
+    centerX: 173.3 / 900,   // 0.192556 (19.26%)
+    centerY: 1294.85 / 1599, // 0.809787 (80.98%)
+    diameter: 259.0 / 900,  // 0.287778 (28.78%)
+    radius: 129.5 / 900,    // 0.143889 (14.39%)
   },
   
   nameBox: {
-    left: 400 / 941,      // 0.4250797 (42.51%)
-    right: 792 / 941,     // 0.8416578 (84.16%)
-    top: 1415 / 1671,     // 0.8467983 (84.68%)
-    bottom: 1500 / 1671,  // 0.8976660 (89.77%)
-    centerX: 596 / 941,   // 0.6333687 (63.34%)
-    centerY: 1457.5 / 1671, // 0.8722321 (87.22%)
-    width: 392 / 941,     // 0.4165781 (41.66%)
-    height: 85 / 1671,    // 0.0508677 (5.09%)
+    left: 350 / 900,        // 0.388889 (38.89%)
+    right: 754 / 900,       // 0.837778 (83.78%)
+    top: 1399 / 1599,       // 0.874922 (87.49%)
+    bottom: 1516 / 1599,    // 0.948093 (94.81%)
+    centerX: 552 / 900,     // 0.613333 (61.33%)
+    centerY: 1457.5 / 1599, // 0.911507 (91.15%)
+    width: 404 / 900,       // 0.448889 (44.89%)
+    height: 117 / 1599,     // 0.073171 (7.32%)
   },
 };
 
