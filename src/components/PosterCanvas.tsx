@@ -34,6 +34,14 @@ export const PosterCanvas: React.FC<PosterCanvasProps> = ({
   });
   const [showHelper, setShowHelper] = useState(false);
 
+  const baseWidth = posterImage?.naturalWidth && posterImage.naturalWidth > 0 
+    ? posterImage.naturalWidth 
+    : POSTER_CONFIG.nativeWidth;
+  const baseHeight = posterImage?.naturalHeight && posterImage.naturalHeight > 0 
+    ? posterImage.naturalHeight 
+    : POSTER_CONFIG.nativeHeight;
+  const aspectStyle = { aspectRatio: `${baseWidth} / ${baseHeight}` };
+
   // Render canvas whenever inputs change
   const performRender = useCallback(() => {
     if (!canvasRef.current || !posterImage) return;
@@ -45,7 +53,7 @@ export const PosterCanvas: React.FC<PosterCanvasProps> = ({
       name: devoteeName,
       photoTransform,
       fontFamily,
-      scale: 1, // Native preview (941x1671)
+      scale: 1,
     });
 
     // If helper guides are requested, draw subtle overlay on preview canvas
@@ -139,7 +147,7 @@ export const PosterCanvas: React.FC<PosterCanvasProps> = ({
           : ''
       }`}
     >
-      {/* Poster Canvas Frame with Locked 941/1671 Aspect Ratio & Mobile Responsive Sizing */}
+      {/* Poster Canvas Frame with Responsive Sizing */}
       <div
         className={`relative w-full rounded-3xl overflow-hidden glass-panel p-2 sm:p-3 shadow-2xl border border-[#FFCD82]/30 group mx-auto transition-all ${
           isFullscreen
@@ -156,16 +164,17 @@ export const PosterCanvas: React.FC<PosterCanvasProps> = ({
           <span>Live HD Preview</span>
         </div>
 
-        {/* Canvas Display Locked Strictly to 941 / 1671 */}
+        {/* Canvas Display Locked to Exact Poster Aspect Ratio */}
         <div
           className="relative w-full rounded-2xl overflow-hidden shadow-2xl bg-[#1a0105] flex items-center justify-center"
-          style={{ aspectRatio: '941 / 1671' }}
+          style={aspectStyle}
         >
           <canvas
             ref={canvasRef}
-            width={POSTER_CONFIG.nativeWidth}
-            height={POSTER_CONFIG.nativeHeight}
-            className={`w-full h-full object-contain select-none touch-none aspect-[941/1671] ${
+            width={baseWidth}
+            height={baseHeight}
+            style={aspectStyle}
+            className={`w-full h-full object-contain select-none touch-none ${
               userImage ? 'cursor-grab active:cursor-grabbing' : 'cursor-default'
             }`}
             onPointerDown={handlePointerDown}
@@ -194,7 +203,9 @@ export const PosterCanvas: React.FC<PosterCanvasProps> = ({
         {/* Interactive Floating Quick Toolbar on Canvas */}
         <div className="mt-2.5 flex items-center justify-between gap-2 px-1 text-xs text-[#FFCD82]/80">
           <div className="flex items-center gap-1">
-            <span className="text-[10px] sm:text-[11px] text-[#FFCD82]/70 font-mono">941 × 1671px</span>
+            <span className="text-[10px] sm:text-[11px] text-[#FFCD82]/70 font-mono">
+              {baseWidth} × {baseHeight}px
+            </span>
           </div>
 
           <div className="flex items-center gap-1">

@@ -17,7 +17,7 @@ export interface RenderPosterOptions {
   name: string;
   photoTransform: PhotoTransform;
   fontFamily?: string;
-  scale?: number; // 1 for native (941x1671), 2 for 2x (1882x3342), etc.
+  scale?: number;
 }
 
 /**
@@ -31,6 +31,32 @@ export const loadImage = (src: string): Promise<HTMLImageElement> => {
     img.onerror = (err) => reject(new Error(`Failed to load image: ${src}. Details: ${err}`));
     img.src = src;
   });
+};
+
+/**
+ * Robust loader for poster background template with fallbacks
+ */
+export const loadPosterImage = async (): Promise<HTMLImageElement> => {
+  const candidatePaths = [
+    '/assets/poster-template-v3.png',
+    '/assets/poster-template-v3.jpeg',
+    '/assets/poster-template-v3.jpg',
+    '/assets/poster-template.png',
+    '/assets/poster-template.jpg',
+  ];
+
+  for (const path of candidatePaths) {
+    try {
+      const img = await loadImage(path);
+      if (img.naturalWidth > 0 && img.naturalHeight > 0) {
+        return img;
+      }
+    } catch {
+      // Continue to next candidate
+    }
+  }
+
+  throw new Error('Failed to load poster background from all candidate paths');
 };
 
 /**
@@ -49,8 +75,11 @@ export const renderPoster = ({
   const ctx = canvas.getContext('2d', { alpha: false, desynchronized: false });
   if (!ctx) return;
 
-  const targetWidth = Math.round(POSTER_CONFIG.nativeWidth * scale);
-  const targetHeight = Math.round(POSTER_CONFIG.nativeHeight * scale);
+  const baseWidth = posterImage.naturalWidth > 0 ? posterImage.naturalWidth : POSTER_CONFIG.nativeWidth;
+  const baseHeight = posterImage.naturalHeight > 0 ? posterImage.naturalHeight : POSTER_CONFIG.nativeHeight;
+
+  const targetWidth = Math.round(baseWidth * scale);
+  const targetHeight = Math.round(baseHeight * scale);
 
   if (canvas.width !== targetWidth || canvas.height !== targetHeight) {
     canvas.width = targetWidth;
@@ -64,7 +93,7 @@ export const renderPoster = ({
   // 1. Draw Base Poster Template V3
   ctx.drawImage(posterImage, 0, 0, targetWidth, targetHeight);
 
-  // 2. Draw User Photo clipped to Circle (Exact V3 Geometry)
+  // 2. Draw User Photo clipped to Circle (Exact Percentage Geometry)
   const circleCenterX = POSTER_CONFIG.photoCircle.centerX * targetWidth;
   const circleCenterY = POSTER_CONFIG.photoCircle.centerY * targetHeight;
   const circleDiameter = POSTER_CONFIG.photoCircle.diameter * targetWidth;
@@ -131,10 +160,10 @@ export const renderPoster = ({
     ctx.restore();
   }
 
-  // 3. Draw Devotee Name in the Rectangular Box (V3 Layout: Center-Aligned Both Axes)
+  // 3. Draw Devotee Name in the Rectangular Box (Center-Aligned Both Axes)
   const trimmedName = name.trim();
   if (trimmedName) {
-    drawCenteredBoxName(ctx, trimmedName, targetWidth, targetHeight, fontFamily);
+    drawCenteredBoxName(ctx, trimmedName, targetWidth, targetHeight, fontFamily, baseWidth);
   }
 };
 
@@ -147,7 +176,8 @@ function drawCenteredBoxName(
   text: string,
   canvasWidth: number,
   canvasHeight: number,
-  fontFamily: string
+  fontFamily: string,
+  baseWidth: number
 ) {
   const boxWidth = POSTER_CONFIG.nameBox.width * canvasWidth;
   const boxHeight = POSTER_CONFIG.nameBox.height * canvasHeight;
@@ -159,7 +189,7 @@ function drawCenteredBoxName(
   const maxAllowedHeight = boxHeight * 0.78;
 
   // Dynamic Fit-To-Width binary search for exact font size
-  let minFont = 14 * (canvasWidth / POSTER_CONFIG.nativeWidth);
+  let minFont = 14 * (canvasWidth / baseWidth);
   let maxFont = maxAllowedHeight * 1.05;
   let bestFontSize = minFont;
 

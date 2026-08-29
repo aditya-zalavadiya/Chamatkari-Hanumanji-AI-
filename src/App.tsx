@@ -7,8 +7,8 @@ import { ExportPanel } from './components/ExportPanel';
 import { SplashScreen } from './components/SplashScreen';
 import { AboutModal } from './components/AboutModal';
 import { Footer } from './components/Footer';
-import { ASSET_PATHS, FONT_OPTIONS, TEMPLE_INFO } from './constants/posterConfig';
-import { loadImage } from './utils/canvasRenderer';
+import { FONT_OPTIONS, TEMPLE_INFO } from './constants/posterConfig';
+import { loadPosterImage } from './utils/canvasRenderer';
 import type { PhotoTransform } from './utils/canvasRenderer';
 
 export const App: React.FC = () => {
@@ -30,24 +30,26 @@ export const App: React.FC = () => {
     warmth: 0,
   });
 
-  // Preload base poster template and temple logo
+  // Preload base poster template and temple logo with robust loader
   useEffect(() => {
     let isMounted = true;
 
-    async function loadAssets() {
+    async function initAssets() {
       try {
-        const img = await loadImage(ASSET_PATHS.posterTemplate);
+        const img = await loadPosterImage();
         if (isMounted) {
           setPosterImage(img);
           setLoadingAssets(false);
         }
       } catch (err) {
-        console.error('Failed to load poster background template', err);
-        setLoadingAssets(false);
+        console.error('Failed to load poster template', err);
+        if (isMounted) {
+          setLoadingAssets(false);
+        }
       }
     }
 
-    loadAssets();
+    initAssets();
 
     return () => {
       isMounted = false;
