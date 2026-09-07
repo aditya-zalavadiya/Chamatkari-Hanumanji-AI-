@@ -142,9 +142,9 @@ export const ExportPanel: React.FC<ExportPanelProps> = ({
         </label>
         <div className="grid grid-cols-3 gap-2">
           {[
-            { value: 1, label: '1x HD', desc: '941×1671' },
-            { value: 2, label: '2x Ultra HD', desc: '1882×3342 (બેસ્ટ)' },
-            { value: 3, label: '3x 4K Print', desc: '2823×5013 (પ્રિન્ટ)' },
+            { value: 1, label: '1x HD', desc: '576×1024' },
+            { value: 2, label: '2x Ultra HD', desc: '1152×2048 (બેસ્ટ)' },
+            { value: 3, label: '3x 4K Print', desc: '1728×3072 (પ્રિન્ટ)' },
           ].map((opt) => (
             <button
               key={opt.value}
