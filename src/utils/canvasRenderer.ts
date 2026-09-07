@@ -38,11 +38,11 @@ export const loadImage = (src: string): Promise<HTMLImageElement> => {
  */
 export const loadPosterImage = async (): Promise<HTMLImageElement> => {
   const candidatePaths = [
-    '/assets/poster-template-v3.png',
-    '/assets/poster-template-v3.jpeg',
     '/assets/poster-template-v3.jpg',
-    '/assets/poster-template.png',
+    '/assets/poster-template-v3.jpeg',
+    '/assets/poster-template-v3.png',
     '/assets/poster-template.jpg',
+    '/assets/poster-template.png',
   ];
 
   for (const path of candidatePaths) {
@@ -60,7 +60,7 @@ export const loadPosterImage = async (): Promise<HTMLImageElement> => {
 };
 
 /**
- * Main Poster Compositor (V3)
+ * Main Poster Compositor (Final Version)
  * Performs pixel-perfect rendering onto the provided canvas.
  */
 export const renderPoster = ({
@@ -90,7 +90,7 @@ export const renderPoster = ({
   ctx.imageSmoothingEnabled = true;
   ctx.imageSmoothingQuality = 'high';
 
-  // 1. Draw Base Poster Template V3
+  // 1. Draw Base Poster Template
   ctx.drawImage(posterImage, 0, 0, targetWidth, targetHeight);
 
   // 2. Draw User Photo clipped to Circle (Exact Percentage Geometry)
@@ -169,7 +169,7 @@ export const renderPoster = ({
 
 /**
  * Draws the devotee's name center-aligned horizontally and vertically
- * inside the rectangular box below the top "શુભેચ્છક:" label tag (V3 Template)
+ * inside the rectangular box below the top "શુભેચ્છક:" label tag
  */
 function drawCenteredBoxName(
   ctx: CanvasRenderingContext2D,
@@ -184,13 +184,13 @@ function drawCenteredBoxName(
   const centerX = POSTER_CONFIG.nameBox.centerX * canvasWidth;
   const centerY = POSTER_CONFIG.nameBox.centerY * canvasHeight;
 
-  // Maximum allowed width with safe padding inside the frame
+  // Maximum allowed width and height with safe padding inside the frame
   const maxAllowedWidth = boxWidth * 0.90;
-  const maxAllowedHeight = boxHeight * 0.78;
+  const maxAllowedHeight = boxHeight * 0.72;
 
   // Dynamic Fit-To-Width binary search for exact font size
-  let minFont = 14 * (canvasWidth / baseWidth);
-  let maxFont = maxAllowedHeight * 1.05;
+  let minFont = 12 * (canvasWidth / baseWidth);
+  let maxFont = maxAllowedHeight * 1.0;
   let bestFontSize = minFont;
 
   ctx.save();
@@ -209,7 +209,7 @@ function drawCenteredBoxName(
   ctx.textBaseline = 'middle';
 
   // Small Y adjustment for Devanagari / Gujarati baseline balance
-  const yOffset = bestFontSize * 0.03;
+  const yOffset = bestFontSize * 0.02;
   const renderY = centerY + yOffset;
 
   // 1. Dark Maroon Shadow & Outline for sharp contrast against gold / dark box background
